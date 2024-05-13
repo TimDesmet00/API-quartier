@@ -1,0 +1,17 @@
+{
+  "name": "api-quartier",
+  "version": "1.0.0",
+  "description": "traville d'entrainement permettant de fournir a mon quartier un bon moyen d'organiser la fête des voisins",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.3.4",
+    "nodemon": "^3.1.0"
+  }
+}
