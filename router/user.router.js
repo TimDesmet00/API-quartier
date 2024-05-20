@@ -1,25 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
+const userController = require("../controllers/user.controller");
 
-router.get("/getall", (req, res) => {
-  res.status(200).json({ message: "voici les utilisateurs" });
-});
+// route utiliser dans l'index.js: /user
 
-router.get("/getone/:id", (req, res) => {
-  res.status(200).json({ message: "voici un utilisateur" });
-});
+router.get("/getall", userController.getAll);
 
-router.post("/add", (req, res) => {
-  res.status(200).json({ message: "utilisateur ajouté" });
-});
+router.get("/getone/:id", userController.getOne);
 
-router.put("/edit/:id", (req, res) => {
-  res.status(200).json({ message: "utilisateur modifié" });
-});
+router.post("/add", userController.add);
 
-router.delete("/del/:id", (req, res) => {
-  res.status(200).json({ message: "utilisateur supprimé" });
-});
+router.put("/edit/:id", userController.edit);
+
+router.delete("/del/:id", userController.del);
 
 module.exports = router;
