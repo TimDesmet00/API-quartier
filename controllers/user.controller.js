@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const bcrypt = require("bcryptjs");
 
 const getAll = async (req, res) => {
   try {
@@ -51,12 +52,34 @@ const del = async (req, res) => {
     res.status(200).json({ message: "utilisateur supprimé" });
   } catch (error) {
     console.error(error);
-    res
-      .status(400)
-      .json({
-        message:
-          "il y a eux un problème lors de la suppression de l'utilisateur",
-      });
+    res.status(400).json({
+      message: "il y a eux un problème lors de la suppression de l'utilisateur",
+    });
+  }
+};
+
+const auth = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ msg: "Invalid Credentials" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Invalid Credentials" });
+    }
+
+    const token = user.generateAuthToken();
+
+    res.json({ token });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
   }
 };
 
@@ -66,4 +89,5 @@ module.exports = {
   add,
   edit,
   del,
+  auth,
 };
